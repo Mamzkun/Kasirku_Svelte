@@ -2,4 +2,6 @@
   import "../app.css"
 </script>
 
-<slot></slot>
+<div class="max-w-sm mx-auto px-6 border font-inriaSans">
+  <slot></slot>
+</div>
