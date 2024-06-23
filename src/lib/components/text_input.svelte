@@ -3,8 +3,6 @@
   export let label = undefined
   export let value =""
 
-
-
 </script>
 
 <div>
@@ -12,7 +10,7 @@
      <label for="">{label}</label>
   {/if}
   <div 
-    class="custom-shadow bg-blue-300 border border-black w-full h-10 rounded-lg"
+    class="custom-shadow bg-blue-300 border border-black w-full h-10 rounded-lg mt-1"
   >
     <input 
       type="text"
