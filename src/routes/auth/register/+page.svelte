@@ -11,7 +11,7 @@
     }
 </script>
 
-<div class="h-screen flex items-center">
+<div class="h-screen flex items-center px-6">
   <div class="flex flex-col gap-8 w-full">
     <h1 class="text-3xl text-center">Register</h1>
     <TextInput label="email" placeholder="masukkan email" bind:value={email} />
