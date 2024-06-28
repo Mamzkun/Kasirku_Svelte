@@ -1,8 +1,8 @@
 <script>
   import { goto } from '$app/navigation';
 
-  let activeTab = 'transaksi';
-  let titlePage = 'Daftar Transaksi';
+  export let activeTab = 'transaksi';
+  let titlePage
 
   const tabs = [
     { title: 'Daftar Transaksi', icon: '🛒', label: 'transaksi' },
@@ -11,6 +11,11 @@
     { title: 'Manajemen Produk', icon: '📦', label: 'produk' },
     { title: 'Pengaturan Akun', icon: '⚙️', label: 'setting' }
   ];
+
+  $: tabs.map(tab => {
+      tab.label == activeTab ? titlePage = tab.title : ""
+    })
+
 </script>
 
 <div class="h-full flex flex-col justify-between">
@@ -30,8 +35,6 @@
           class="flex flex-col items-center p-2 focus:outline-none"
           class:active={activeTab === tab.label}
           on:click={() => {
-            activeTab = tab.label
-            titlePage = tab.title
             goto(`/d/${tab.label}`)
             }}
         >

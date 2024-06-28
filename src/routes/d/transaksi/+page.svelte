@@ -1,4 +1,5 @@
 <script>
+  import Layout from "../dashboard_layout.svelte"
   import CardInfo from "../../../lib/components/card_info.svelte"
 
   const dataList = [
@@ -8,8 +9,10 @@
 ]
 </script>
 
-<div class="flex flex-col gap-3 mt-4 z-0">
-  {#each dataList as data}
-  <CardInfo title={data.title} date={data.date} price={data.price} />
-  {/each}
-</div>
+<Layout activeTab="transaksi">
+  <div class="flex flex-col gap-3 mt-4 z-0">
+    {#each dataList as data}
+    <CardInfo title={data.title} date={data.date} price={data.price} />
+    {/each}
+  </div>
+</Layout>
