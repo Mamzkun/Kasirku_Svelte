@@ -1,7 +1,7 @@
 <script>
   import Layout from "../dashboard_layout.svelte"
-  import TextInput from "../../../lib/components/text_input.svelte"
-  import Button from "../../../lib/components/button.svelte"
+  import TextInput from "../../lib/components/text_input.svelte"
+  import Button from "../../lib/components/button.svelte"
 
 </script>
 

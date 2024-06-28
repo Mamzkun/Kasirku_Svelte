@@ -1,9 +1,9 @@
 <script>
   import Layout from "../dashboard_layout.svelte"
-  import TextInput from "../../../lib/components/text_input.svelte"
-  import Button from "../../../lib/components/button.svelte"
-  import CategoryList from "../../../lib/components/category_list.svelte";
-  import CardMenu from "../../../lib/components/card_menu.svelte";
+  import TextInput from "../../lib/components/text_input.svelte"
+  import Button from "../../lib/components/button.svelte"
+  import CategoryList from "../../lib/components/category_list.svelte";
+  import CardMenu from "../../lib/components/card_menu.svelte";
 
   const categoryList = [
     {name: "makanan", icon: "✅"}, 

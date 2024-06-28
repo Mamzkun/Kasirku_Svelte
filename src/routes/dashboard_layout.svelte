@@ -35,7 +35,7 @@
           class="flex flex-col items-center p-2 focus:outline-none"
           class:active={activeTab === tab.label}
           on:click={() => {
-            goto(`/d/${tab.label}`)
+            goto(`/${tab.label}`)
             }}
         >
           <div class="text-2xl">{@html tab.icon}</div>

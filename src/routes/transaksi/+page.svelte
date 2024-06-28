@@ -1,6 +1,6 @@
 <script>
   import Layout from "../dashboard_layout.svelte"
-  import CardInfo from "../../../lib/components/card_info.svelte"
+  import CardInfo from "../../lib/components/card_info.svelte"
 
   const dataList = [
     { title: 'meja no.7', date: '2024', price: '60.000' },
