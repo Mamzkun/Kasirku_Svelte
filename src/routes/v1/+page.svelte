@@ -1,9 +1,9 @@
 <script>
-    import Button from "../lib/components/button.svelte";
-    import CardInfo from "../lib/components/card_info.svelte";
-    import CardMenu from "../lib/components/card_menu.svelte";
-    import TextInput from "../lib/components/text_input.svelte";
-    import CategoryList from "../lib/components/category_list.svelte";
+    import Button from "../../lib/components/v1/button.svelte";
+    import CardInfo from "../../lib/components/v1/card_info.svelte";
+    import CardMenu from "../../lib/components/v1/card_menu.svelte";
+    import TextInput from "../../lib/components/v1/text_input.svelte";
+    import CategoryList from "../../lib/components/v1/category_list.svelte";
 
 </script>
 

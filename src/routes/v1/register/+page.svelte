@@ -1,6 +1,6 @@
 <script>
-    import Button from "../../lib/components/button.svelte";
-    import TextInput from "../../lib/components/text_input.svelte";
+    import Button from "../../../lib/components/v1/button.svelte";
+    import TextInput from "../../../lib/components/v1/text_input.svelte";
 
     let email = ""
     let name = ""
@@ -18,6 +18,6 @@
     <TextInput label="nama usaha" placeholder="masukkan nama usaha" bind:value={name} />
     <TextInput label="password" placeholder="masukkan password" bind:value={password} />
     <Button on:click={submit}>Login</Button>
-    <p class="text-center">Sudah punya akun? <a href="/auth/login" class="text-blue-500">Register</a></p>
+    <p class="text-center">Sudah punya akun? <a href="/v1/login" class="text-blue-500">Register</a></p>
   </div>
 </div>

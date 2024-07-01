@@ -1,6 +1,6 @@
 <script>
   import { goto } from '$app/navigation';
-  import AppBar from '../lib/components/app_bar.svelte';
+  import AppBar from '../../lib/components/v1/app_bar.svelte';
 
   export let activeTab = 'transaksi';
   let titlePage
@@ -34,7 +34,7 @@
           class="flex flex-col items-center p-2 focus:outline-none"
           class:active={activeTab === tab.label}
           on:click={() => {
-            goto(`/${tab.label}`)
+            goto(`/v1/${tab.label}`)
             }}
         >
           <div class="text-2xl">{@html tab.icon}</div>
