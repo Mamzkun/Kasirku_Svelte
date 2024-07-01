@@ -9,7 +9,7 @@
   ]
 </script>
 
-<div class="flex justify-between items-end border-t py-2 px-6 h-[70px]">
+<div class="flex justify-between items-end border-t py-2 px-6 h-[70px] self-stretch flex-grow-0 flex-shrink-0">
   {#each menuList as menu}
     {#if menu.id !== 'add'}
       <button 

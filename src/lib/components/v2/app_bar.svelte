@@ -1,11 +1,11 @@
 <script>
   export let title = 'title'
-  export let showBack = true
+  export let showBack = false
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
-<header class="flex justify-between items-center w-full px-6 py-4 bg-white">
+<header class="flex justify-between items-center w-full px-6 py-4 bg-white self-stretch flex-grow-0 flex-shrink-0 h-16">
   <div class="w-6">
      {#if showBack}
      <img 
@@ -15,6 +15,6 @@
      >
      {/if}
   </div>
-  <h1 class="text-base text-center text-black font-semibold">{title}</h1>
+  <h1 class="text-lg text-center text-black font-medium">{title}</h1>
   <div class="w-6"></div>
 </header>
