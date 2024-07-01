@@ -1,5 +1,6 @@
 <script>
   import { goto } from '$app/navigation';
+  import AppBar from '../lib/components/app_bar.svelte';
 
   export let activeTab = 'transaksi';
   let titlePage
@@ -20,9 +21,7 @@
 
 <div class="h-full flex flex-col justify-between">
 
-  <nav class="sticky top-0 bg-white z-10 h-16 px-6 py-4 border">
-    <h1 class="text-xl">{titlePage}</h1>
-  </nav>
+  <AppBar titlePage={titlePage} />
 
   <div class="px-6 pb-6 max-h-custom overflow-y-auto">
     <slot/>
