@@ -5,7 +5,7 @@
 
 <div class="flex flex-col justify-between items-center w-full h-full">
   <AppBar title="Angkringan Jepang Aqori" />
-  <div class="self-stretch flex-grow px-6 overflow-y-auto">
+  <div class="self-stretch flex-grow overflow-y-auto">
     <slot />
   </div>
   <NavBar />

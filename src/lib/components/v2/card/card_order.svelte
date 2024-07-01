@@ -6,7 +6,7 @@
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <!-- svelte-ignore a11y-no-static-element-interactions -->
-<div class="flex justify-between items-center px-5 py-3 rounded-lg bg-white border border-gray-400" on:click>
+<div class="flex justify-between items-center px-5 py-3 mb-2 rounded-lg bg-white border border-gray-400" on:click>
   <div class="flex justify-between items-center flex-grow">
     <div class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative gap-1">
       <p class="flex-grow-0 flex-shrink-0 text-base text-left text-black">{title}</p>
