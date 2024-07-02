@@ -4,7 +4,8 @@ export default {
   theme: {
     extend: {},
     fontFamily: {
-      inriaSans: ["inria sans"]
+      inriaSans: ["inria sans"],
+      poppins: ["poppins"]
     }
   },
   plugins: [],
