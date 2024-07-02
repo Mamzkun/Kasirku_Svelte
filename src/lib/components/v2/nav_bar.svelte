@@ -30,7 +30,7 @@
       {/if}
       </button>
     {:else}
-      <button class="flex flex-col items-center">
+      <button class="flex flex-col items-center" on:click={() => goto('/v2/create-order')}>
         <div class="bg-blue-400 rounded-full p-2">
           <img src={menu.icon} alt="" class="w-12 h-12">
         </div>

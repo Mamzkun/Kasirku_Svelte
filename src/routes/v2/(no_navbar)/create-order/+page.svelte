@@ -1,10 +1,11 @@
 <script>
+  import { goto } from '$app/navigation'
   import AppBar from '../../../../lib/components/v2/app_bar.svelte'
   import InputNumber from '../../../../lib/components/v2/input/input_number.svelte'
   import InputSelect from '../../../../lib/components/v2/input/input_select.svelte'
   import Button from '../../../../lib/components/v2/button.svelte'
   import ButtonIcon from '../../../../lib/components/v2/button_icon.svelte'
-  import CardMenu from '../../../../lib/components/v2/card/card_checkout.svelte'
+  import CardCheckout from '../../../../lib/components/v2/card/card_checkout.svelte'
 </script>
 
 <div class="flex flex-col justify-between w-full h-full">
@@ -13,19 +14,19 @@
       <AppBar title="Buat Pesanan Baru" showBack="true" />
       <div class="flex gap-2 bg-white pt-4 pb-6 px-6">
         <InputNumber />
-        <Button>Tambah Item</Button>
+        <Button on:click={()=>  goto('/v2/choose-menu')}>Tambah Item</Button>
       </div>
     </div>
-    <CardMenu>
+    <CardCheckout>
       <ButtonIcon icon="/icons/ic_minus.svg" />
       <p class="px-2">0</p>
       <ButtonIcon icon="/icons/ic_plus.svg" />
-    </CardMenu>
-    <CardMenu>
+    </CardCheckout>
+    <CardCheckout>
       <ButtonIcon icon="/icons/ic_minus.svg" />
       <p class="px-2">0</p>
       <ButtonIcon icon="/icons/ic_plus.svg" />
-    </CardMenu>
+    </CardCheckout>
 
   </div>
   
