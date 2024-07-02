@@ -1,0 +1,21 @@
+{
+  "name" : "kasireji",
+  "short_name" : "kasireji",
+  "start_url" : "/v2",
+  "display" : "standalone",
+  "theme_color" : "#60a5fa",
+  "background_color" : "#ffffff",
+  "icons" : [
+    {
+      "src": "icon192.webp",
+      "sizes": "192x192",
+      "type": "image/webp"
+    },
+    {
+      "src": "icon512.webp",
+      "sizes": "513x513",
+      "type": "image/webp"
+    }
+  ],
+  "description" : "lorem ipsum"
+}
