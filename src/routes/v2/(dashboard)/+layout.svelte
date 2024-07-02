@@ -1,6 +1,6 @@
 <script>
-  import AppBar from '../../../lib/components/v2/app_bar.svelte'
-  import NavBar from '../../../lib/components/v2/nav_bar.svelte'
+  import AppBar from '$lib/components/v2/app_bar.svelte'
+  import NavBar from '$lib/components/v2/nav_bar.svelte'
 </script>
 
 <div class="flex flex-col justify-between items-center w-full h-full">

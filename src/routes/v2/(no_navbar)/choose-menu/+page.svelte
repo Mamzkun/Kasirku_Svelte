@@ -1,9 +1,9 @@
 <script>
-  import AppBar from '../../../../lib/components/v2/app_bar.svelte'
-  import InputSelect from '../../../../lib/components/v2/input/input_select.svelte'
-  import InputSearch from '../../../../lib/components/v2/input/input_search.svelte'
-  import CardMenu from '../../../../lib/components/v2/card/card_menu.svelte'
-    import ButtonIcon from '../../../../lib/components/v2/button_icon.svelte';
+  import AppBar from '$lib/components/v2/app_bar.svelte'
+  import InputSelect from '$lib/components/v2/input/input_select.svelte'
+  import InputSearch from '$lib/components/v2/input/input_search.svelte'
+  import CardMenu from '$lib/components/v2/card/card_menu.svelte'
+    import ButtonIcon from '$lib/components/v2/button_icon.svelte';
 </script>
 
 <div>

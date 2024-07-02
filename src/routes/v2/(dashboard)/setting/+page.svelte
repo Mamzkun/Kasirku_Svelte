@@ -1,9 +1,9 @@
 <script>
-  import InputSelect from '../../../../lib/components/v2/input/input_select.svelte'
-  import InputText from '../../../../lib/components/v2/input/input_text.svelte'
-  import InputNumber from '../../../../lib/components/v2/input/input_number.svelte'
-  import InputTime from '../../../../lib/components/v2/input/input_time.svelte'
-  import Button from '../../../../lib/components/v2/button.svelte'
+  import InputSelect from '$lib/components/v2/input/input_select.svelte'
+  import InputText from '$lib/components/v2/input/input_text.svelte'
+  import InputNumber from '$lib/components/v2/input/input_number.svelte'
+  import InputTime from '$lib/components/v2/input/input_time.svelte'
+  import Button from '$lib/components/v2/button.svelte'
 </script>
 
 <div class="px-6 pb-6">

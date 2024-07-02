@@ -1,7 +1,7 @@
 <script>
-  import InputText from '../../../../lib/components/v2/input/input_text.svelte'
-  import InputPassword from '../../../../lib/components/v2/input/input_password.svelte'
-  import Button from '../../../../lib/components/v2/button.svelte'
+  import InputText from '$lib/components/v2/input/input_text.svelte'
+  import InputPassword from '$lib/components/v2/input/input_password.svelte'
+  import Button from '$lib/components/v2/button.svelte'
 </script>
 
 <div class="flex flex-col gap-6 px-6">
