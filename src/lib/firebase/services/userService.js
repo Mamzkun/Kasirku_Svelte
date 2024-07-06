@@ -24,7 +24,7 @@ export async function login(email, password) {
         return {error: false, message: 'login success', token: userCredential.user.accessToken};
     } catch (error) {
         console.error("Error logging in user:", error.message);
-        return {error: true, message: error.message, token: null}
+        return {error: true, message: error, token: null}
     }
 }
 
