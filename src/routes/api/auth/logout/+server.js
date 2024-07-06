@@ -8,6 +8,7 @@ export async function DELETE({ cookies }) {
   if (!result.error){
     cookies.delete('isLogin', { path: '/' })
     cookies.delete('jwtToken', { path: '/' })
+    cookies.delete('userInfo', { path: '/' })
   }
 
   return json(result)

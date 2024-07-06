@@ -8,6 +8,7 @@
 
   export let data
   let {name, address, email, phone, open_time, close_time, instagram} = data.userInfo
+  let disabled = true
 
   const logout = async () => {
     const response = await fetch('/api/auth/logout', {
@@ -24,23 +25,33 @@
 </script>
 
 <div class="px-6 pb-6">
-  <h2 class="mb-4 pt-4">Pengaturan Aplikasi:</h2>
-  <div class="flex gap-4">
-    <InputSelect label="Bahasa"/>
-    <InputSelect label="Tema"/>
-  </div>
-  <hr class="w-100 my-4">
-  <h2 class="mb-4">Pengaturan Toko:</h2>
-  <div class="flex flex-col gap-4">
-    <InputText label="Nama Toko" disabled={true} bind:value={name} />
-    <InputText label="Alamat Toko" disabled={true} bind:value={address} />
-    <InputText label="Email" disabled={true} bind:value={email} />
-    <InputNumber label="Nomor Telepon" disabled={true} bind:value={phone} />
+  {#if disabled}
+    <h2 class="mb-4 pt-4">Pengaturan Aplikasi:</h2>
     <div class="flex gap-4">
-      <InputTime label="Jam Operasional" disabled={true} bind:value={open_time} />
-      <InputTime label="Sampai Jam" disabled={true} bind:value={close_time} />
+      <InputSelect label="Bahasa"/>
+      <InputSelect label="Tema"/>
     </div>
-    <InputText label="Media Sosial (instagram)" disabled={true} bind:value={instagram} />
-    <Button styleType="danger" on:click={logout} >Log Out</Button>
+    <hr class="w-100 mt-4">
+  {/if}
+  <h2 class="mb-4 mt-4">Pengaturan Toko:</h2>
+  <div class="flex flex-col gap-4">
+    <InputText label="Nama Toko" disabled={disabled} bind:value={name} />
+    <InputText label="Alamat Toko" disabled={disabled} bind:value={address} />
+    <InputText label="Email" disabled={disabled} bind:value={email} />
+    <InputNumber label="Nomor Telepon" disabled={disabled} bind:value={phone} />
+    <div class="flex gap-4">
+      <InputTime label="Jam Operasional" disabled={disabled} bind:value={open_time} />
+      <InputTime label="Sampai Jam" disabled={disabled} bind:value={close_time} />
+    </div>
+    <InputText label="Media Sosial (instagram)" disabled={disabled} bind:value={instagram} />
+    {#if disabled}
+      <Button on:click={() => disabled = !disabled}>Edit Profile</Button>
+      <Button styleType="danger" on:click={logout} >Log Out</Button>
+      {:else}
+      <div class="flex gap-4">
+        <Button on:click={() => disabled = !disabled}>Simpan Perubahan</Button>
+        <Button styleType="danger" on:click={() => disabled = !disabled}>Batal</Button>
+      </div>
+    {/if}
   </div>
 </div>
