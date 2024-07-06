@@ -42,14 +42,14 @@
   <InputText label="Email" placeholder="masukkan email" bind:value={email} />
   <InputPassword label="Password" placeholder="masukkan password" bind:value={password} />
   <InputPassword label="Ulangi Password" placeholder="ulangi password" bind:value={repassword} />
-  <Button on:click={handleSubmit}>Register</Button>
+  <Button on:click={handleSubmit} isLoading={isLoading} >Register</Button>
   
   <div class="flex items-center justify-center gap-4">
     <hr class="border flex-grow relative">
     <span class="text-center text-sm">or register with:</span>
     <hr class="border flex-grow relative">
   </div>
-  <Button styleType="outline" isLoading={isLoading} >Google</Button>
+  <Button styleType="outline" >Google</Button>
   
 
   <p class="text-center text-sm">Have an account? <a href="/v2/login" class="text-blue-400">Login</a></p>
