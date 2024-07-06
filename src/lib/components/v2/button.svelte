@@ -7,7 +7,7 @@
       looks = 'text-blue-400 bg-white border border-blue-400'
       break;
     case 'danger':
-      looks = 'text-white bg-red-400'
+      looks = 'text-red-400 bg-white border border-red-400'
       break;
     default:
       looks = 'text-white bg-blue-400'

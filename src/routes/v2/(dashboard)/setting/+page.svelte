@@ -6,6 +6,11 @@
   import InputTime from '$lib/components/v2/input/input_time.svelte'
   import Button from '$lib/components/v2/button.svelte'
 
+  export let data
+  let {name, address, email, phone, open_time, close_time, instagram} = data.userInfo
+  let disabled = true
+  let isLoading = false
+
   const logout = async () => {
     const response = await fetch('/api/auth/logout', {
 			method: 'DELETE',
@@ -18,26 +23,55 @@
       goto('/v2/login')
     }
   }
+
+  const saveProfile = async () => {
+    isLoading = true
+    const response = await fetch('/api/user', {
+			method: 'PUT',
+      body: JSON.stringify({ name, address, phone, open_time, close_time, instagram }),
+			headers: {'content-type': 'application/json'}
+		});
+
+		const result = await response.json();
+    if (result.error){
+      alert(result.message)
+    } else {
+      location.reload()
+    }
+    isLoading = false
+    disabled = true
+  }
+
 </script>
 
 <div class="px-6 pb-6">
-  <h2 class="mb-4 pt-4">Pengaturan Aplikasi:</h2>
-  <div class="flex gap-4">
-    <InputSelect label="Bahasa"/>
-    <InputSelect label="Tema"/>
-  </div>
-  <hr class="w-100 my-4">
-  <h2 class="mb-4">Pengaturan Toko:</h2>
-  <div class="flex flex-col gap-4">
-    <InputText label="Nama Toko" />
-    <InputText label="Alamat Toko" />
-    <InputText label="Email" />
-    <InputNumber label="Nomor Telepon" />
+  {#if disabled}
+    <h2 class="mb-4 pt-4">Pengaturan Aplikasi:</h2>
     <div class="flex gap-4">
-      <InputTime label="Jam Operasional" />
-      <InputTime label="Sampai Jam" />
+      <InputSelect label="Bahasa"/>
+      <InputSelect label="Tema"/>
     </div>
-    <InputText label="Media Sosial (instagram)" />
-    <Button styleType="danger" on:click={logout} >Log Out</Button>
+    <hr class="w-100 mt-4">
+  {/if}
+  <h2 class="mb-4 mt-4">Pengaturan Toko:</h2>
+  <div class="flex flex-col gap-4">
+    <InputText label="Nama Toko" disabled={disabled} bind:value={name} />
+    <InputText label="Alamat Toko" disabled={disabled} bind:value={address} />
+    <InputText label="Email" disabled={true} bind:value={email} />
+    <InputNumber label="Nomor Telepon" disabled={disabled} bind:value={phone} />
+    <div class="flex gap-4">
+      <InputTime label="Jam Operasional" disabled={disabled} bind:value={open_time} />
+      <InputTime label="Sampai Jam" disabled={disabled} bind:value={close_time} />
+    </div>
+    <InputText label="Media Sosial (instagram)" disabled={disabled} bind:value={instagram} />
+    {#if disabled}
+      <Button on:click={() => disabled = !disabled}>Edit Profile</Button>
+      <Button styleType="danger" on:click={logout} >Log Out</Button>
+      {:else}
+      <div class="flex gap-4">
+        <Button on:click={() => disabled = !disabled} on:click={saveProfile} isLoading={isLoading} >Simpan Perubahan</Button>
+        <Button styleType="danger" on:click={() => disabled = !disabled}>Batal</Button>
+      </div>
+    {/if}
   </div>
 </div>

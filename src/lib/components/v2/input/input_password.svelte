@@ -2,6 +2,7 @@
   export let label = ''
   export let value = ''
   export let placeholder = ''
+  export let disabled = false
   let show = false
   $: eye = show ? '/icons/ic_eye_close.svg' : '/icons/ic_eye_open.svg'
 </script>
@@ -17,6 +18,7 @@
        <input 
          type="text" 
          placeholder={placeholder}
+         disabled={disabled}
          class="text-sm w-full focus:outline-none focus:ring-0" 
          bind:value
        >
@@ -24,6 +26,7 @@
        <input 
          type="password" 
          placeholder={placeholder}
+         disabled={disabled}
          class="text-sm w-full focus:outline-none focus:ring-0" 
          bind:value
        >

@@ -16,5 +16,5 @@
      {/if}
   </div>
   <h1 class="text-lg text-center text-black font-medium">{title}</h1>
-  <div class="w-6"></div>
+  <div class="w-6"><slot/></div>
 </header>

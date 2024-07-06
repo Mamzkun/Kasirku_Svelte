@@ -1,4 +1,5 @@
 import { goto } from '$app/navigation'
+import { jwtDecode } from 'jwt-decode'
 
 export function blockGuest(){
   const cookieName = 'isLogin'
@@ -16,4 +17,9 @@ export function blockUser(){
   if (cookieValue !== undefined) {
     goto('/v2/home')
   }
+}
+
+export function getUserId(jwtToken){
+  const payload = jwtDecode(jwtToken)
+  return payload.user_id
 }
