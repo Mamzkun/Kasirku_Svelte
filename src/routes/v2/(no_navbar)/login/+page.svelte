@@ -24,6 +24,7 @@
 		const result = await response.json();
     if (result.error){
       alert(result.message)
+      console.log(result);
     } else {
       goto('/v2/home')
     }
