@@ -1,11 +1,11 @@
 <script>
   import { goto } from '$app/navigation'
-  import AppBar from '../../../../lib/components/v2/app_bar.svelte'
-  import InputNumber from '../../../../lib/components/v2/input/input_number.svelte'
-  import InputSelect from '../../../../lib/components/v2/input/input_select.svelte'
-  import Button from '../../../../lib/components/v2/button.svelte'
-  import ButtonIcon from '../../../../lib/components/v2/button_icon.svelte'
-  import CardCheckout from '../../../../lib/components/v2/card/card_checkout.svelte'
+  import AppBar from '$lib/components/v2/app_bar.svelte'
+  import InputNumber from '$lib/components/v2/input/input_number.svelte'
+  import InputSelect from '$lib/components/v2/input/input_select.svelte'
+  import Button from '$lib/components/v2/button.svelte'
+  import ButtonIcon from '$lib/components/v2/button_icon.svelte'
+  import CardCheckout from '$lib/components/v2/card/card_checkout.svelte'
 </script>
 
 <div class="flex flex-col justify-between w-full h-full">

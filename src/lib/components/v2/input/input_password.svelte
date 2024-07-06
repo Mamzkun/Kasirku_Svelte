@@ -1,6 +1,7 @@
 <script>
   export let label = ''
   export let value = ''
+  export let placeholder = ''
   let show = false
   $: eye = show ? '/icons/ic_eye_close.svg' : '/icons/ic_eye_open.svg'
 </script>
@@ -15,14 +16,14 @@
     {#if show}
        <input 
          type="text" 
-         placeholder="input your text" 
+         placeholder={placeholder}
          class="text-sm w-full focus:outline-none focus:ring-0" 
          bind:value
        >
     {:else}
        <input 
          type="password" 
-         placeholder="input your text" 
+         placeholder={placeholder}
          class="text-sm w-full focus:outline-none focus:ring-0" 
          bind:value
        >
