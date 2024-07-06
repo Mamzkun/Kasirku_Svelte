@@ -1,8 +1,5 @@
 <script>
-  import InputText from '../../../../lib/components/v2/input/input_text.svelte'
-  import InputNumber from '../../../../lib/components/v2/input/input_number.svelte'
-  import InputTime from '../../../../lib/components/v2/input/input_time.svelte'
-  import Button from '../../../../lib/components/v2/button.svelte'
+  import Button from '$lib/components/v2/button.svelte'
 </script>
 
 <div class="flex flex-col justify-center gap-6 px-6">

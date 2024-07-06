@@ -1,5 +1,5 @@
 <script>
-  import CardOrder from '../../../../lib/components/v2/card/card_order.svelte'
+  import CardOrder from '$lib/components/v2/card/card_order.svelte'
 </script>
 
 <div class="sticky top-0 bg-white pb-2 z-10 px-6 pt-4">
