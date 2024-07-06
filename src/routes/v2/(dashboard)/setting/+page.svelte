@@ -6,6 +6,9 @@
   import InputTime from '$lib/components/v2/input/input_time.svelte'
   import Button from '$lib/components/v2/button.svelte'
 
+  export let data
+  let {name, address, email, phone, open_time, close_time, instagram} = data.userInfo
+
   const logout = async () => {
     const response = await fetch('/api/auth/logout', {
 			method: 'DELETE',
@@ -29,15 +32,15 @@
   <hr class="w-100 my-4">
   <h2 class="mb-4">Pengaturan Toko:</h2>
   <div class="flex flex-col gap-4">
-    <InputText label="Nama Toko" />
-    <InputText label="Alamat Toko" />
-    <InputText label="Email" />
-    <InputNumber label="Nomor Telepon" />
+    <InputText label="Nama Toko" disabled={true} bind:value={name} />
+    <InputText label="Alamat Toko" disabled={true} bind:value={address} />
+    <InputText label="Email" disabled={true} bind:value={email} />
+    <InputNumber label="Nomor Telepon" disabled={true} bind:value={phone} />
     <div class="flex gap-4">
-      <InputTime label="Jam Operasional" />
-      <InputTime label="Sampai Jam" />
+      <InputTime label="Jam Operasional" disabled={true} bind:value={open_time} />
+      <InputTime label="Sampai Jam" disabled={true} bind:value={close_time} />
     </div>
-    <InputText label="Media Sosial (instagram)" />
+    <InputText label="Media Sosial (instagram)" disabled={true} bind:value={instagram} />
     <Button styleType="danger" on:click={logout} >Log Out</Button>
   </div>
 </div>

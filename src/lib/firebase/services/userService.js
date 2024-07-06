@@ -1,8 +1,7 @@
 // userService.js
-import { error } from '@sveltejs/kit';
 import { auth, db } from '../firebase';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updatePassword, signOut } from 'firebase/auth';
-import { doc, setDoc, updateDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 
 export async function register(email, password) {
     try {
@@ -38,6 +37,17 @@ export async function logout() {
     }
 }
 
+export async function getProfile(user_id) {
+    try {
+        const userRef = doc(db, "users", user_id);
+        const userSnap = await getDoc(userRef);
+        return {error: false, message: "get profile successfully", data: userSnap.data()}
+    } catch(error) {
+        console.error("Error getting profile:", error);
+        return {error: true, message: error.message};
+    }
+}
+
 export async function updateProfile(user_id, user) {
     try {
         const userRef = doc(db, "users", user_id);
@@ -47,7 +57,7 @@ export async function updateProfile(user_id, user) {
         return {error: false, message: "Profile updated successfully"};
     } catch (error) {
         console.error("Error updating profile:", error);
-        return {error: true, message: error.message}
+        return {error: true, message: error.message};
     }
 }
 
@@ -56,7 +66,7 @@ export async function editPassword(user, newPassword) {
         await updatePassword(auth.currentUser, newPassword);
         return {error: false, message: "Password updated successfully" };
     } catch (error) {
-        console.error("Error updating password:", error)
-        return {error: true, message: error.message}
+        console.error("Error updating password:", error);
+        return {error: true, message: error.message};
     }
 }
