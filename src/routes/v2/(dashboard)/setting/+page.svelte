@@ -9,6 +9,7 @@
   export let data
   let {name, address, email, phone, open_time, close_time, instagram} = data.userInfo
   let disabled = true
+  let isLoading = false
 
   const logout = async () => {
     const response = await fetch('/api/auth/logout', {
@@ -22,6 +23,25 @@
       goto('/v2/login')
     }
   }
+
+  const saveProfile = async () => {
+    isLoading = true
+    const response = await fetch('/api/user', {
+			method: 'PUT',
+      body: JSON.stringify({ name, address, phone, open_time, close_time, instagram }),
+			headers: {'content-type': 'application/json'}
+		});
+
+		const result = await response.json();
+    if (result.error){
+      alert(result.message)
+    } else {
+      location.reload()
+    }
+    isLoading = false
+    disabled = true
+  }
+
 </script>
 
 <div class="px-6 pb-6">
@@ -37,7 +57,7 @@
   <div class="flex flex-col gap-4">
     <InputText label="Nama Toko" disabled={disabled} bind:value={name} />
     <InputText label="Alamat Toko" disabled={disabled} bind:value={address} />
-    <InputText label="Email" disabled={disabled} bind:value={email} />
+    <InputText label="Email" disabled={true} bind:value={email} />
     <InputNumber label="Nomor Telepon" disabled={disabled} bind:value={phone} />
     <div class="flex gap-4">
       <InputTime label="Jam Operasional" disabled={disabled} bind:value={open_time} />
@@ -49,7 +69,7 @@
       <Button styleType="danger" on:click={logout} >Log Out</Button>
       {:else}
       <div class="flex gap-4">
-        <Button on:click={() => disabled = !disabled}>Simpan Perubahan</Button>
+        <Button on:click={() => disabled = !disabled} on:click={saveProfile} isLoading={isLoading} >Simpan Perubahan</Button>
         <Button styleType="danger" on:click={() => disabled = !disabled}>Batal</Button>
       </div>
     {/if}

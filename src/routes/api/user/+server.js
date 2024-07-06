@@ -24,5 +24,9 @@ export async function PUT({ request, cookies }){
   const { name, address, phone, open_time, close_time, instagram } = await request.json()
   const result = await updateProfile(user_id, { name, address, phone, open_time, close_time, instagram })
 
+  if (!result.error) {
+    cookies.delete('userInfo', { path: '/', secure: import.meta.env.PROD })
+  }
+
   return json(result)
 }
