@@ -1,13 +1,20 @@
 <script>
+  import { onMount } from 'svelte'
+  import { goto } from "$app/navigation";
+  import { blockUser } from '$lib/helpers/session';
   import InputText from '$lib/components/v2/input/input_text.svelte'
   import InputPassword from '$lib/components/v2/input/input_password.svelte'
   import Button from '$lib/components/v2/button.svelte'
+  
+  onMount(() => blockUser())
 
   let email = ''
   let password = ''
   let remember = false
+  let isLoading = false
 
   const handleSubmit = async () => {
+    isLoading = true
     const response = await fetch('/api/auth/login', {
 			method: 'POST',
 			body: JSON.stringify({ email, password, remember }),
@@ -17,7 +24,10 @@
 		const result = await response.json();
     if (result.error){
       alert(result.message)
+    } else {
+      goto('/v2/home')
     }
+    isLoading = false
   }
 </script>
 
@@ -33,7 +43,7 @@
     </div>
     <p class="text-red-400 text-sm font-medium">lupa password?</p>
   </div>
-  <Button on:click={handleSubmit}>Login</Button>
+  <Button on:click={handleSubmit} isLoading={isLoading} >Login</Button>
   
   <div class="flex items-center justify-center gap-4">
     <hr class="border flex-grow relative">

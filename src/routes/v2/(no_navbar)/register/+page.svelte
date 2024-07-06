@@ -1,15 +1,23 @@
 <script>
+  import { goto } from '$app/navigation';
+  import { onMount } from 'svelte'
   import InputText from '$lib/components/v2/input/input_text.svelte'
   import InputPassword from '$lib/components/v2/input/input_password.svelte'
   import Button from '$lib/components/v2/button.svelte'
+  import { blockUser } from '$lib/helpers/session';
+
+  onMount(() => blockUser())
 
   let email = ''
   let password = ''
   let repassword = ''
+  let isLoading = false
 
   const handleSubmit = async () => {
+    isLoading = true
     if (password !== repassword) {
       alert('password tidak sama')
+      return
     }
 
     const response = await fetch('/api/auth/register', {
@@ -21,7 +29,10 @@
 		const result = await response.json();
     if (result.error){
       alert(result.message)
+    } else {
+      goto('/v2/add-store')
     }
+    isLoading = false
   }
 </script>
 
@@ -38,7 +49,7 @@
     <span class="text-center text-sm">or register with:</span>
     <hr class="border flex-grow relative">
   </div>
-  <Button styleType="outline">Google</Button>
+  <Button styleType="outline" isLoading={isLoading} >Google</Button>
   
 
   <p class="text-center text-sm">Have an account? <a href="/v2/login" class="text-blue-400">Login</a></p>

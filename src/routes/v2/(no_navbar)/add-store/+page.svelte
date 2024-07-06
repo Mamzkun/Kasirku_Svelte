@@ -8,14 +8,14 @@
 <div class="flex flex-col gap-6 px-6">
   <span class="mb-24" />
   <h1 class="font-semibold text-lg text-center">Lengkapi Data!</h1>
-  <InputText label="Nama Toko" />
-  <InputText label="Alamat Toko" />
-  <InputNumber label="Nomor Telepon" />
+  <InputText label="Nama Toko" placeholder="nama toko" />
+  <InputText label="Alamat Toko" placeholder="alamat lengkap toko" />
+  <InputNumber label="Nomor Telepon" placeholder="nomor telepon / whatsApp aktif" />
   <div class="flex gap-4">
     <InputTime label="Jam Operasional" />
     <InputTime label="Sampai Jam" />
   </div>
-  <InputText label="Media Sosial (instagram)" />
+  <InputText label="Media Sosial (instagram)" placeholder="@username_ig" />
   <Button>Lanjutkan Pendaftaran</Button>
   
 </div>
