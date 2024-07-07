@@ -1,7 +1,8 @@
 <script>
-  export let title = 'Soto Jadul Lamongan'
-  export let price = '20.000'
-  export let image = 'https://akcdn.detik.net.id/visual/2024/05/20/soto-ayam_43.jpeg?w=250&q=90'
+  export let product
+  $: name = product.name
+  $: image = product.image
+  $: price = product.price
 </script>
 
 <div class="flex flex-col gap-6 mb-6">
@@ -9,7 +10,7 @@
     <div class="flex gap-4 w-full">
       <img src={image} alt="food" class="object-cover h-20 w-20 rounded-lg">
       <div class="flex flex-col justify-between h-full w-full">
-        <p class="text-base font-medium text-left text-black" > {title} </p>
+        <p class="text-base font-medium text-left text-black" > {name} </p>
         <div class="flex justify-between items-end">
           <p class="text-xs text-left text-black"> {price} </p>
           <div class="flex gap-2 items-center"><slot /></div>

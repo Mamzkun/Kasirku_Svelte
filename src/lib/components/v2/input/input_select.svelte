@@ -3,10 +3,10 @@
   export let disabled = false
   export let value = 1
   export let options = [
-		{ id: 1, text: `Where did you` },
-		{ id: 2, text: `What is your` },
-		{ id: 3, text: `What is another` }
-	];
+    { id: 'food', text: `Makanan` },
+    { id: 'drink', text: `Minuman` },
+    { id: 'snack', text: `Camilan` }
+  ]
 </script>
 
 <div class="flex flex-col w-full gap-1">

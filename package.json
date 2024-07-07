@@ -21,6 +21,7 @@
   },
   "type": "module",
   "dependencies": {
+    "browser-image-compression": "^2.0.2",
     "firebase": "^10.12.2",
     "jwt-decode": "^4.0.0",
     "jwt-encode": "^1.0.1"
