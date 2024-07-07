@@ -2,6 +2,7 @@
 import { db, storage } from '../firebase';
 import { collection, doc, getDocs, addDoc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { getFormattedDateToday } from '$lib/helpers/dateFormatter'
 
 export async function getAllProduct(user_id) {
     try {
@@ -17,9 +18,10 @@ export async function getAllProduct(user_id) {
 
 export async function addProduct(user_id, product, image) {
     try {
-        if (image) {
-            const storageRef = ref(storage, `products/${user_id}/${image.name}`);
-            const snapshot = await uploadBytes(storageRef, image);
+        if (image != undefined) {
+            const binaryImage = getBinaryFileOf(image)
+            const storageRef = ref(storage, `products/${user_id}/${getFormattedDateToday()}_${product.name}`);
+            const snapshot = await uploadBytes(storageRef, binaryImage, {contentType: 'image/webp'});
             product.image = await getDownloadURL(snapshot.ref);
         }
 
@@ -34,9 +36,10 @@ export async function addProduct(user_id, product, image) {
 
 export async function updateProduct(user_id, product_id, product, image) {
     try {
-        if (image) {
-            const storageRef = ref(storage, `products/${user_id}/${image.name}`);
-            const snapshot = await uploadBytes(storageRef, image);
+        if (image != undefined) {
+            const binaryImage = getBinaryFileOf(image)
+            const storageRef = ref(storage, `products/${user_id}/${getFormattedDateToday()}_${product.name}`);
+            const snapshot = await uploadBytes(storageRef, binaryImage, {contentType: 'image/webp'});
             product.image = await getDownloadURL(snapshot.ref);
         }
 
@@ -58,4 +61,9 @@ export async function deleteProduct(user_id, product_id) {
         console.error("Error deleting product:", error);
         return { error: true, message: error.message };
     }
+}
+
+function getBinaryFileOf(image) {
+    const base64Data = image.split(',')[1]
+    return Buffer.from(base64Data, 'base64')
 }
