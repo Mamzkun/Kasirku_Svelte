@@ -12,6 +12,10 @@
   let isLoading = false
 
   const logout = async () => {
+    if (!confirm('apakah kamu yakin ingin keluar?')) {
+      return
+    }
+    
     const response = await fetch('/api/auth/logout', {
 			method: 'DELETE',
 		});

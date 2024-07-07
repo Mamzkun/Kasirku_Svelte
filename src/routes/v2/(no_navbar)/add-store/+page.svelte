@@ -1,4 +1,5 @@
 <script>
+  import { goto } from '$app/navigation'
   import InputText from '$lib/components/v2/input/input_text.svelte'
   import InputNumber from '$lib/components/v2/input/input_number.svelte'
   import InputTime from '$lib/components/v2/input/input_time.svelte'
