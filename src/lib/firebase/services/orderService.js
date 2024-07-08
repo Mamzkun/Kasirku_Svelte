@@ -1,16 +1,33 @@
 // orderService.js
 import { db } from '../firebase';
-import { collection, doc, getDocs, getDoc, addDoc, updateDoc } from 'firebase/firestore';
+import { collection, doc, getDocs, getDoc, addDoc, updateDoc, query, Timestamp, where } from 'firebase/firestore';
 
 export async function getHoldedOrder(user_id) {
-    try {
-        const historiesCol = collection(db, "users", user_id, "histories");
-        const historySnapshot = await getDocs(historiesCol);
-        return historySnapshot.docs.filter(doc => !doc.data().finishDate).map(doc => ({ id: doc.id, ...doc.data() }));
-    } catch (error) {
-        console.error("Error fetching holded orders:", error);
-        throw error;
+    const startOfDay = new Date();
+    const orderHistory = await getOrderHistory(user_id, startOfDay)
+    if (orderHistory.error) {
+        return orderHistory
     }
+
+    const holdedHistory = {
+        "error": orderHistory.error,
+        "message": orderHistory.message,
+        "data": {
+            "total_data": orderHistory.data.length,
+            "total_money": orderHistory.data.reduce((sum, item) => sum + item.total, 0),
+            "holded": [],
+            "success": []
+        }
+    };
+
+    orderHistory.data.forEach(item => {
+        if (item.finish_date) {
+            holdedHistory.data.success.push(item);
+        } else {
+            holdedHistory.data.holded.push(item);
+        }
+    });
+    return holdedHistory
 }
 
 export async function detailOrder(user_id, history_id) {
@@ -21,30 +38,35 @@ export async function detailOrder(user_id, history_id) {
         const orderListCol = collection(db, "users", user_id, "histories", history_id, "order_list");
         const orderListSnapshot = await getDocs(orderListCol);
         const orderList = orderListSnapshot.docs.map(doc => doc.data());
+        const orderDetail = { id: historyDoc.id, ...historyDoc.data(), orderList };
 
-        return { id: historyDoc.id, ...historyDoc.data(), orderList };
+        return { error: false, message: 'getting data successfully', data: orderDetail };
     } catch (error) {
         console.error("Error fetching order detail:", error);
-        throw error;
+        return { error: false, message: error.message, data: null };
     }
 }
 
-export async function getOrderHistory(user_id, month) {
+export async function getOrderHistory(user_id, date) {
     try {
-        const historiesCol = collection(db, "users", user_id, "histories");
-        const historySnapshot = await getDocs(historiesCol);
-        const now = new Date();
-        const currentMonth = month ? new Date(month) : new Date(now.getFullYear(), now.getMonth(), 1);
-        const nextMonth = new Date(currentMonth);
-        nextMonth.setMonth(currentMonth.getMonth() + 1);
+        const startOfDay = new Date(date);
+        startOfDay.setHours(0, 0, 0, 0);
+        const endOfDay = new Date(date);
+        endOfDay.setHours(23, 59, 59, 999);
 
-        return historySnapshot.docs.filter(doc => {
-            const orderDate = new Date(doc.data().orderDate);
-            return orderDate >= currentMonth && orderDate < nextMonth;
-        }).map(doc => ({ id: doc.id, ...doc.data() }));
+        const historiesCol = collection(db, "users", user_id, "histories");
+        const q = query(
+            historiesCol, 
+            where("order_date", ">=", Timestamp.fromDate(startOfDay)),
+            where("order_date", "<=", Timestamp.fromDate(endOfDay))
+        )
+
+        const historySnapshot = await getDocs(q);
+        const holdedHistory = historySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        return { error: false, message: 'getting data successfully', data: holdedHistory };
     } catch (error) {
-        console.error("Error fetching order history:", error);
-        throw error;
+        console.error("Error fetching holded orders:", error);
+        return { error: true, message: error.message, data: null };
     }
 }
 
@@ -63,11 +85,12 @@ export async function createNewOrder(user_id, orderDetail) {
         const orderListCol = collection(db, "users", user_id, "histories", historyDocRef.id, "order_list");
         const batch = orderDetail.orderList.map(order => addDoc(orderListCol, order));
         await Promise.all(batch);
+        const result = { id: historyDocRef.id, ...orderDetail }
 
-        return { id: historyDocRef.id, ...orderDetail };
+        return { error: false, message: 'getting data successfully', data: result };
     } catch (error) {
         console.error("Error creating new order:", error);
-        throw error;
+        return { error: true, message: error.message, data: null };
     }
 }
 

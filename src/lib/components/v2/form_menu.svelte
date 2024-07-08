@@ -40,9 +40,9 @@
 </script>
 
 <div class="absolute bottom-0 right-0 left-0 mx-auto max-w-md z-20 flex justify-center">
-  <div class="w-full bg-white border-t-2 rounded-xl py-4 px-6">
+  <div class="w-full bg-white border-t-2 rounded-3xl py-4 px-6">
     <div class="flex justify-between">
-      <h2 class="font-medium mb-6">Edit Menu</h2>
+      <h2 class="font-medium mb-6">{id ? 'Edit Menu' : 'Tambah Menu'}</h2>
       <!-- svelte-ignore a11y-click-events-have-key-events -->
       <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
       <img src="/icons/ic_close.svg" alt="" class="h-6" on:click>

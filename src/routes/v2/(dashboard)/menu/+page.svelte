@@ -1,5 +1,5 @@
 <script>
-  import { onMount } from 'svelte'
+  import { onDestroy, onMount } from 'svelte'
   import InputSelect from '$lib/components/v2/input/input_select.svelte'
   import InputSearch from '$lib/components/v2/input/input_search.svelte'
   import CardMenu from '$lib/components/v2/card/card_menu.svelte'
@@ -19,12 +19,13 @@
     { id: 'snack', text: `Camilan` }
   ]
   let products, filteredProducts, productInModal
-  productList.subscribe(value => {products = value})
+  const unsubcribe = productList.subscribe(value => {products = value})
   $: filteredProducts = filterProduct(products, categorySelected, searchValue)
 
   onMount( async () => {
     fetchProduct()
   })
+  onDestroy(unsubcribe)
 
   const fetchProduct = async () => {
     const product = await fetch('/api/product', {
