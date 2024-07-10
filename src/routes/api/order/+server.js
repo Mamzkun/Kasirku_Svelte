@@ -1,6 +1,7 @@
 import { json } from '@sveltejs/kit';
-import { getUserId } from "$lib/helpers/session"
-import { getHoldedOrder, getOrderHistory } from '$lib/firebase/services/orderService.js';
+import { getUserId } from "$lib/helpers/session";
+import { getHoldedOrder, getOrderHistory, createNewOrder } from '$lib/firebase/services/orderService.js';
+import { Timestamp } from 'firebase/firestore';
 
 export async function GET({ url, cookies }) {
   const jwtToken = cookies.get('jwtToken')
@@ -21,8 +22,19 @@ export async function GET({ url, cookies }) {
   return json(result)
 }
 
-export async function POST({ request, cookies }) {
-  console.log(2);
+export async function POST({ url, request, cookies }) {
+  const jwtToken = cookies.get('jwtToken')
+  if (jwtToken === undefined) {
+    return json({error: true, message:"you are not login yet!"})
+  }
+
+  const user_id = getUserId(jwtToken)
+  const finish = await url.searchParams.get('finish')
+  const { label, total, money, method, orderList} = await request.json()
+  const orderDate = Timestamp.fromDate(new Date())
+  const finishDate = finish ? Timestamp.fromDate(new Date()) : null
+  const result = await createNewOrder(user_id, { label, total, money, method, orderDate, finishDate, orderList} )
+  return json(result)
 }
 
 export async function PUT({ request, cookies }) {

@@ -85,6 +85,7 @@
     <div class="flex gap-4">
       <InputSelect 
         label="Bahasa" 
+        disabled={true}
         bind:value={language}
         options={[
           {id: 'indonesia', text: 'Indonesia'},
@@ -93,6 +94,7 @@
       />
       <InputSelect 
         label="Tema" 
+        disabled={true}
         bind:value={theme}
         options={[
           {id: 'light', text: 'Terang'},

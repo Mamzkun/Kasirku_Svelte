@@ -1,7 +1,7 @@
 import { writable, derived } from 'svelte/store'
 
 function createOrderList() {
-  const { subscribe, update } = writable([])
+  const { subscribe, update, set } = writable([])
 
   function attach (product) {
     update(orders => {
@@ -29,7 +29,7 @@ function createOrderList() {
     });
   }
 
-  return { subscribe, attach, detach }
+  return { subscribe, attach, detach, set }
 }
 const listOfOrder = createOrderList()
 const count =  derived(listOfOrder, $listOfOrder => 
@@ -43,4 +43,7 @@ const jumlahItem = derived(listOfOrder, $listOfOrder => {
   return result;
 });
 
-export { listOfOrder, count, jumlahItem }
+const money = writable()
+const table = writable()
+
+export { listOfOrder, count, jumlahItem, money, table }
