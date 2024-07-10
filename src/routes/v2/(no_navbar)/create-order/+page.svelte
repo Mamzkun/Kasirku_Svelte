@@ -6,7 +6,7 @@
   import Button from '$lib/components/v2/button.svelte'
   import ButtonIcon from '$lib/components/v2/button_icon.svelte'
   import CardCheckout from '$lib/components/v2/card/card_checkout.svelte'
-  import { listOfOrder, count, table as writableTable, money as writeableMoney } from './store'
+  import { listOfOrder, count, table as writableTable, money as writeableMoney, orderId } from './store'
 
   let table = $writableTable
   let money = $writeableMoney

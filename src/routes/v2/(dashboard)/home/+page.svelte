@@ -37,6 +37,6 @@
 
 <div class="px-6">
   {#each $holdedOrder as order}
-    <CardOrder title={`Meja no.${order.label}`} time={order.order_date.seconds} price={order.total} />
+    <CardOrder id={order.id} title={`Meja no.${order.label}`} time={order.order_date.seconds} price={order.total} />
   {/each}
 </div>

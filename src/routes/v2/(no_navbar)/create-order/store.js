@@ -45,5 +45,7 @@ const jumlahItem = derived(listOfOrder, $listOfOrder => {
 
 const money = writable()
 const table = writable()
+const orderId = writable()
+const response = writable()
 
-export { listOfOrder, count, jumlahItem, money, table }
+export { listOfOrder, count, jumlahItem, money, table, orderId, response }
