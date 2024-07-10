@@ -78,8 +78,8 @@ export async function createNewOrder(user_id, orderDetail) {
             total: orderDetail.total,
             money: orderDetail.money,
             method: orderDetail.method,
-            orderDate: orderDetail.orderDate,
-            finishDate: orderDetail.finishDate
+            order_date: orderDetail.orderDate,
+            finish_date: orderDetail.finishDate
         });
 
         const orderListCol = collection(db, "users", user_id, "histories", historyDocRef.id, "order_list");
@@ -87,7 +87,7 @@ export async function createNewOrder(user_id, orderDetail) {
         await Promise.all(batch);
         const result = { id: historyDocRef.id, ...orderDetail }
 
-        return { error: false, message: 'getting data successfully', data: result };
+        return { error: false, message: 'create new order success', data: result };
     } catch (error) {
         console.error("Error creating new order:", error);
         return { error: true, message: error.message, data: null };

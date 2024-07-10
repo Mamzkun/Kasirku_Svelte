@@ -1,4 +1,4 @@
 import { writable } from 'svelte/store'
 
-export const activeTab = writable('home');
-export const title = writable('Home');
+export const activeTab = writable();
+export const title = writable('');

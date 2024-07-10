@@ -6,9 +6,12 @@
   import Button from '$lib/components/v2/button.svelte'
   import ButtonIcon from '$lib/components/v2/button_icon.svelte'
   import CardCheckout from '$lib/components/v2/card/card_checkout.svelte'
-  import { listOfOrder, count } from './store'
+  import { listOfOrder, count, table as writableTable, money as writeableMoney, orderId } from './store'
 
-  let table, money
+  let table = $writableTable
+  let money = $writeableMoney
+  $: writableTable.set(table)
+  $: writeableMoney.set(money)
   let paymentMethod = 'tunai'
   const listOfPaymentMethod = [
     { id: 'tunai', text: `Tunai` },
@@ -19,22 +22,44 @@
   $: cashback = money - $count > 0 ? money - $count : 0;
 
   const handleSave = async () => {
-
+    if (!table) {
+      alert('isi nomor meja terlebih dahulu')
+    } else {
+      saveNewOrder(false)
+    }
   }
 
   const handleProcess = async () => {
-
+    if (!table) {
+      alert('isi nomor meja terlebih dahulu')
+    } else {
+      saveNewOrder(true)
+    }
   }
 
-  const saveNewOrder = async () => {
-    const response = await fetch('/api/order', {
+  const saveNewOrder = async (finish) => {
+    let moneys = paymentMethod === 'tunai' ? money : $count
+    const response = await fetch(`/api/order${finish ? '?finish=true' : ''}`, {
       method: 'POST',
-      body: JSON.stringify({product_id}),
+      body: JSON.stringify({
+        label: table, 
+        money: moneys || 0, 
+        total: $count, 
+        method: paymentMethod,
+        orderList: $listOfOrder
+      }),
       headers: {'content-type': 'application/json'}
     })
     
     const result = await response.json()
-    if (!result.error){console.log('jadi')}
+    if (result.error){
+      console.log(result.message)
+    } else {
+      listOfOrder.set([])
+      writableTable.set(undefined)
+      writeableMoney.set(undefined)
+      goto('/v2/home')
+    }
   }
 
 </script>
@@ -78,8 +103,8 @@
           </div>
         {/if}
         <div class="flex gap-4 mt-2">
-          <Button styleType="outline">Simpan</Button>
-          <Button>Proses</Button>
+          <Button styleType="outline" on:click={handleSave}>Simpan</Button>
+          <Button on:click={handleProcess}>Proses</Button>
         </div>
       </div>
     </div>

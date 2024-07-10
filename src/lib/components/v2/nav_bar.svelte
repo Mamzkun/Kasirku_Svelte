@@ -1,7 +1,15 @@
 <script>
   import { goto } from '$app/navigation'
+  import { listOfOrder, table, money } from '../../../routes/v2/(no_navbar)/create-order/store'
 
   export let activeTab, menuList, changeMenu
+
+  const addOrder = () => {
+    listOfOrder.set([])
+    table.set(undefined)
+    money.set(undefined)
+    goto('/v2/create-order')
+  }
 </script>
 
 <div class="flex justify-between items-end border-t py-2 px-6 h-[70px] self-stretch flex-grow-0 flex-shrink-0 sticky bottom-0 z-10 bg-white">
@@ -23,7 +31,7 @@
       {/if}
       </button>
     {:else}
-      <button class="flex flex-col items-center" on:click={() => goto('/v2/create-order')}>
+      <button class="flex flex-col items-center" on:click={addOrder}>
         <div class="bg-blue-400 rounded-full p-2">
           <img src={menu.icon} alt="" class="w-12 h-12">
         </div>

@@ -1,10 +1,9 @@
 <script>
-  import { goto } from '$app/navigation'
   import CardOrder from '$lib/components/v2/card/card_order.svelte'
   import { onMount } from 'svelte';
+  import { holdedOrder } from './store'
 
   let totalData, totalMoney
-  let holdedOrder = []
   
   onMount(() => getHoldedOrder())
 
@@ -16,7 +15,7 @@
     } else {
       totalData = result.data.total_data
       totalMoney = result.data.total_money
-      holdedOrder = result.data.holded
+      holdedOrder.set(result.data.holded)
     }
   }
 </script>
@@ -37,7 +36,7 @@
 </div>
 
 <div class="px-6">
-  {#each holdedOrder as order}
-    <CardOrder title={`Meja no.${order.label}`} time={order.order_date.seconds} price={order.total} />
+  {#each $holdedOrder as order}
+    <CardOrder id={order.id} title={`Meja no.${order.label}`} time={order.order_date.seconds} price={order.total} />
   {/each}
 </div>
