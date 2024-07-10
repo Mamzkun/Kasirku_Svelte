@@ -5,11 +5,39 @@
   import InputNumber from '$lib/components/v2/input/input_number.svelte'
   import InputTime from '$lib/components/v2/input/input_time.svelte'
   import Button from '$lib/components/v2/button.svelte'
+  import { userInfo } from './store'
+  import { onMount } from 'svelte';
 
-  export let data
-  let {name, address, email, phone, open_time, close_time, instagram} = data.userInfo
+  let name, address, email, phone, open_time, close_time, instagram
   let disabled = true
   let isLoading = false
+  let language = 'indonesia'
+  let theme = 'light'
+
+  onMount(() => fetchProfile())
+
+  const fetchProfile = async () => {
+    const res = await fetch('/api/user', {
+      method: 'GET'
+    })
+    const result = await res.json()
+    if (result.error) {
+      alert(result.message)
+    } else {
+      userInfo.set(result.data)
+      refreshProfile($userInfo)
+    }
+  }
+
+  const refreshProfile = (profile) => {
+    name = profile.name
+    address = profile.address
+    email = profile.email
+    phone = profile.phone
+    open_time = profile.open_time
+    close_time = profile.close_time
+    instagram = profile.instagram
+  }
 
   const logout = async () => {
     if (!confirm('apakah kamu yakin ingin keluar?')) {
@@ -39,11 +67,14 @@
 		const result = await response.json();
     if (result.error){
       alert(result.message)
-    } else {
-      location.reload()
     }
     isLoading = false
     disabled = true
+  }
+
+  const cancelSave = () => {
+    disabled = !disabled
+    refreshProfile($userInfo)
   }
 
 </script>
@@ -52,8 +83,22 @@
   {#if disabled}
     <h2 class="mb-4 pt-4">Pengaturan Aplikasi:</h2>
     <div class="flex gap-4">
-      <InputSelect label="Bahasa"/>
-      <InputSelect label="Tema"/>
+      <InputSelect 
+        label="Bahasa" 
+        bind:value={language}
+        options={[
+          {id: 'indonesia', text: 'Indonesia'},
+          {id: 'english', text: 'English'}
+        ]}
+      />
+      <InputSelect 
+        label="Tema" 
+        bind:value={theme}
+        options={[
+          {id: 'light', text: 'Terang'},
+          {id: 'night', text: 'Gelap'}
+        ]}
+      />
     </div>
     <hr class="w-100 mt-4">
   {/if}
@@ -67,14 +112,14 @@
       <InputTime label="Jam Operasional" disabled={disabled} bind:value={open_time} />
       <InputTime label="Sampai Jam" disabled={disabled} bind:value={close_time} />
     </div>
-    <InputText label="Media Sosial (instagram)" disabled={disabled} bind:value={instagram} />
+    <InputText label="Media Sosial (instagram)" placeholder="@instagram" disabled={disabled} bind:value={instagram} />
     {#if disabled}
       <Button on:click={() => disabled = !disabled}>Edit Profile</Button>
       <Button styleType="danger" on:click={logout} >Log Out</Button>
       {:else}
       <div class="flex gap-4">
         <Button on:click={() => disabled = !disabled} on:click={saveProfile} isLoading={isLoading} >Simpan Perubahan</Button>
-        <Button styleType="danger" on:click={() => disabled = !disabled}>Batal</Button>
+        <Button styleType="danger" on:click={() => cancelSave()}>Batal</Button>
       </div>
     {/if}
   </div>

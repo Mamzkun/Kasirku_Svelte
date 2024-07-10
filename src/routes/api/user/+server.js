@@ -1,6 +1,8 @@
 import { getUserId } from '$lib/helpers/session'
 import { updateProfile, getProfile } from '$lib/firebase/services/userService'
 import { json } from '@sveltejs/kit'
+import jwtEncoder from 'jwt-encode'
+import { jwtDecode } from 'jwt-decode'
 
 export async function GET({ cookies }){
   const jwtToken = cookies.get('jwtToken')
@@ -8,10 +10,19 @@ export async function GET({ cookies }){
     return json({error: true, message:"you are not login yet!"})
   }
 
-  const user_id = getUserId(jwtToken)
-  const result = await getProfile(user_id)
+  let result  
+  const userInfo = cookies.get('userInfo')
+  if (userInfo === undefined) {
+    const user_id = getUserId(jwtToken)
+    result = await getProfile(user_id)
+    const maxAge = 60 * 60 * 8
+    const userToken = jwtEncoder(result.data, 'secred')
+    cookies.set('userInfo', userToken, { path: '/', httpOnly: false, sameSite: 'strict', secure: import.meta.env.PROD, maxAge })
+  } else {
+    result = {error: false, message: 'getting data from session', data: jwtDecode(userInfo)}
+  }
 
-  return result
+  return json(result)
 }
 
 export async function PUT({ request, cookies }){

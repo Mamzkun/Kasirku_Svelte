@@ -37,7 +37,7 @@
 
 <div>
   <div class="sticky top-0 z-10">
-    <AppBar title="Daftar Menu" showBack="true" />
+    <AppBar title="Daftar Menu" showBack="true" backIcon="/icons/ic_close.svg" />
     <div class="flex gap-2 bg-white pt-4 pb-6 px-6">
       <InputSelect options={categories} bind:value={categorySelected} />
       <InputSearch placeholder="cari produk..." bind:value={searchValue} />
