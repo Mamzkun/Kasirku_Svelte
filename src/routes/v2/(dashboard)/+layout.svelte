@@ -7,7 +7,7 @@
   import { activeTab, title } from './store'
 
   let menuList = [
-    {id: 'home', title: 'Home', icon: '/icons/ic_home.svg', iconActive: '/icons/ic_home_fill.svg'},
+    {id: 'home', title: 'KasiReji', icon: '/icons/ic_home.svg', iconActive: '/icons/ic_home_fill.svg'},
     {id: 'menu', title: 'Menu', icon: '/icons/ic_burger.svg', iconActive: '/icons/ic_burger_fill.svg'},
     {id: 'add', title: 'New Order', icon: '/icons/ic_plus.svg'},
     {id: 'report', title: 'Laporan', icon: '/icons/ic_chart.svg', iconActive: '/icons/ic_chart_fill.svg'},
@@ -32,7 +32,7 @@
 </script>
 
 <div class="flex flex-col justify-between items-center w-full h-full">
-  <AppBar title={$title}>
+  <AppBar title={$title} backIcon="/icon192.webp" showBack={true} onBack={() => goto('/v2/home')}>
     {#if $activeTab === 'home'}
       <!-- svelte-ignore a11y-click-events-have-key-events -->
       <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->

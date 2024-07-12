@@ -1,6 +1,6 @@
 <script>
   import { goto } from '$app/navigation'
-  import { listOfOrder, table, money } from '../../../routes/v2/(no_navbar)/create-order/store'
+  import { listOfOrder, table, money, orderId } from '../../../routes/v2/(no_navbar)/create-order/store'
 
   export let activeTab, menuList, changeMenu
 
@@ -8,6 +8,7 @@
     listOfOrder.set([])
     table.set(undefined)
     money.set(undefined)
+    orderId.set(undefined)
     goto('/v2/create-order')
   }
 </script>

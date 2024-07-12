@@ -33,8 +33,11 @@
 </script>
 
 <div class="flex flex-col gap-6 px-6">
-  <span class="mb-24" />
-  <h1 class="font-semibold text-lg text-center">Hi, Welcome Back!</h1>
+  <span class="mb-16" />
+  <div class="flex flex-col items-center gap-4">
+    <img src="/icon192.webp" alt="" class="w-16 rounded-xl">
+    <h1 class="font-semibold text-lg text-center">Hi, Welcome Back!</h1>
+  </div>
   <InputText label="Email" placeholder="Masukkan Email" bind:value={email} />
   <InputPassword label="Password" placeholder="Masukkan Password" bind:value={password} />
   <div class="flex justify-between">

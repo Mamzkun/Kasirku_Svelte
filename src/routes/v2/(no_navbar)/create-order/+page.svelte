@@ -8,6 +8,8 @@
   import CardCheckout from '$lib/components/v2/card/card_checkout.svelte'
   import { listOfOrder, count, table as writableTable, money as writeableMoney, orderId } from './store'
 
+  $: console.log($orderId);
+  
   let table = $writableTable
   let money = $writeableMoney
   $: writableTable.set(table)
@@ -25,7 +27,15 @@
     if (!table) {
       alert('isi nomor meja terlebih dahulu')
     } else {
-      saveNewOrder(false)
+      if ($orderId) {
+        if (updateOrder(false)) {
+          goto('/v2/home')
+        }
+      } else {
+        if(saveNewOrder(false)){
+          goto('/v2/home')
+        }
+      }
     }
   }
 
@@ -33,7 +43,15 @@
     if (!table) {
       alert('isi nomor meja terlebih dahulu')
     } else {
-      saveNewOrder(true)
+      if ($orderId) {
+        if(updateOrder(true)){
+          goto('/v2/resume')
+        }
+      } else {
+        if(saveNewOrder(true)){
+          goto('/v2/resume')
+        }
+      }
     }
   }
 
@@ -54,11 +72,38 @@
     const result = await response.json()
     if (result.error){
       console.log(result.message)
+      return false
     } else {
       listOfOrder.set([])
       writableTable.set(undefined)
       writeableMoney.set(undefined)
-      goto('/v2/home')
+      return true
+    }
+  }
+
+  const updateOrder = async (finish) => {
+    let moneys = paymentMethod === 'tunai' ? money : $count
+    const response = await fetch(`/api/order/${$orderId}${finish ? '?finish=true' : ''}`, {
+      method: 'PUT',
+      body: JSON.stringify({
+        label: table, 
+        money: moneys || 0, 
+        total: $count, 
+        method: paymentMethod,
+        orderList: $listOfOrder
+      }),
+      headers: {'content-type': 'application/json'}
+    })
+    
+    const result = await response.json()
+    if (result.error){
+      console.log(result.message)
+      return false
+    } else {
+      listOfOrder.set([])
+      writableTable.set(undefined)
+      writeableMoney.set(undefined)
+      return true
     }
   }
 

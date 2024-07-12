@@ -1,6 +1,6 @@
 // orderService.js
 import { db } from '../firebase';
-import { collection, doc, getDocs, getDoc, addDoc, updateDoc, query, Timestamp, where } from 'firebase/firestore';
+import { collection, doc, getDocs, getDoc, addDoc, updateDoc, deleteDoc, query, Timestamp, where } from 'firebase/firestore';
 
 export async function getHoldedOrder(user_id) {
     const startOfDay = new Date();
@@ -96,14 +96,15 @@ export async function createNewOrder(user_id, orderDetail) {
 
 export async function updateOrder(user_id, history_id, orderDetail) {
     try {
+        console.log(orderDetail);
         const historyRef = doc(db, "users", user_id, "histories", history_id);
         await updateDoc(historyRef, {
             label: orderDetail.label,
             total: orderDetail.total,
             money: orderDetail.money,
             method: orderDetail.method,
-            orderDate: orderDetail.orderDate,
-            finishDate: orderDetail.finishDate
+            order_date: orderDetail.orderDate,
+            finish_date: orderDetail.finishDate
         });
 
         const orderListCol = collection(db, "users", user_id, "histories", history_id, "order_list");
@@ -113,10 +114,11 @@ export async function updateOrder(user_id, history_id, orderDetail) {
 
         const batch = orderDetail.orderList.map(order => addDoc(orderListCol, order));
         await Promise.all(batch);
+        const result = { id: history_id, ...orderDetail };
 
-        return { id: history_id, ...orderDetail };
+        return { error: false, message: 'create new order success', data: result };
     } catch (error) {
         console.error("Error updating order:", error);
-        throw error;
+        return { error: true, message: error.message, data: null };
     }
 }

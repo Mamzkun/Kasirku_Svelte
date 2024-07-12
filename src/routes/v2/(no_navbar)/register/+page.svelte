@@ -37,8 +37,11 @@
 </script>
 
 <div class="flex flex-col gap-6 px-6">
-  <span class="mb-24" />
-  <h1 class="font-semibold text-lg text-center">Create an Account!</h1>
+  <span class="mb-16" />
+  <div class="flex flex-col items-center gap-4">
+    <img src="/icon192.webp" alt="" class="w-16 rounded-xl">
+    <h1 class="font-semibold text-lg text-center">Create an Account!</h1>
+  </div>
   <InputText label="Email" placeholder="masukkan email" bind:value={email} />
   <InputPassword label="Password" placeholder="masukkan password" bind:value={password} />
   <InputPassword label="Ulangi Password" placeholder="ulangi password" bind:value={repassword} />
