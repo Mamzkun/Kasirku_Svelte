@@ -1,7 +1,10 @@
 <script>
+
   export let title = 'title'
   export let showBack = false
   export let backIcon = "/icons/ic_back.svg"
+  export let onBack = () => history.go(-1)
+
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -12,7 +15,7 @@
      <img 
        src={backIcon} 
        alt="back"
-       on:click={()=> history.go(-1)}
+       on:click={()=> onBack()}
      >
      {/if}
   </div>
