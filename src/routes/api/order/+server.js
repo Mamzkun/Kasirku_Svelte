@@ -36,7 +36,3 @@ export async function POST({ url, request, cookies }) {
   const result = await createNewOrder(user_id, { label, total, money, method, orderDate, finishDate, orderList} )
   return json(result)
 }
-
-export async function PUT({ request, cookies }) {
-  console.log(3);
-}

@@ -1,4 +1,5 @@
 <script>
+  import { goto } from '$app/navigation';
   import Button from '$lib/components/v2/button.svelte'
   import { response } from '../create-order/store'
 
@@ -30,7 +31,7 @@
     </div>
     <div class="flex w-full justify-between">
       <p>Kembali</p>
-      <p>{$response.total - $response.money}</p>
+      <p>{$response.money - $response.total}</p>
     </div>
     <div class="flex w-full justify-between">
       <p>Metode</p>
@@ -45,6 +46,6 @@
     {/each}
   </main>
   <footer class="w-full">
-    <Button on:click={() => history.go(-1)}>Kembali</Button>
+    <Button on:click={() => goto('/v2/home')}>Kembali</Button>
   </footer>
 </div>
